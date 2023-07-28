@@ -5,6 +5,11 @@ import model.RemoteDataSource
 import model.RemoteExpectValue
 import service.RemoteDataService
 
+/**
+ * Read the json file from the local system
+ */
+expect fun PersonalRatingReader.Companion.fromFile(filePath: String): PersonalRatingReader?
+
 class PersonalRatingReader private constructor(private val dataSource: RemoteDataSource) {
     companion object {
         fun fromString(jsonString: String): PersonalRatingReader? {
