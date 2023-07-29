@@ -39,7 +39,14 @@ kotlin {
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
-    
+    nativeTarget.apply {
+        binaries {
+            sharedLib {
+                baseName = "personalrating"
+            }
+        }
+    }
+
     sourceSets {
         val ktorVersion: String by project
 
@@ -68,7 +75,12 @@ kotlin {
         val jsTest by getting
         val nativeMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-cio:$ktorVersion")
+                // Different implementation for mingw
+                if (isMingwX64) {
+                    implementation("io.ktor:ktor-client-winhttp:$ktorVersion")
+                } else {
+                    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+                }
             }
         }
         val nativeTest by getting
