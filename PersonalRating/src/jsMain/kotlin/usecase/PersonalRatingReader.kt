@@ -1,5 +1,6 @@
 package usecase
 
+@JsExport
 actual fun PersonalRatingReader.Companion.fromFile(filePath: String): PersonalRatingReader? {
     val canAccessFile = js("typeof require == 'function' && require('fs') != null") as Boolean
     if (!canAccessFile) return null

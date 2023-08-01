@@ -3,13 +3,14 @@ package usecase
 import kotlinx.serialization.json.Json
 import model.RemoteDataSource
 import model.RemoteExpectValue
-import service.RemoteDataService
+import kotlin.js.JsExport
 
 /**
  * Read the json file from the local system
  */
 expect fun PersonalRatingReader.Companion.fromFile(filePath: String): PersonalRatingReader?
 
+@JsExport
 class PersonalRatingReader private constructor(private val dataSource: RemoteDataSource) {
     companion object {
         fun fromString(jsonString: String): PersonalRatingReader? {
@@ -19,11 +20,6 @@ class PersonalRatingReader private constructor(private val dataSource: RemoteDat
             } catch (e: Exception) {
                 null
             }
-        }
-
-        suspend fun fromRemote(): PersonalRatingReader? {
-            val service = RemoteDataService()
-            return fromString(service.getRemoteString())
         }
     }
 

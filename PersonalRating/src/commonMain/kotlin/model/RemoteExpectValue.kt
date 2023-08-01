@@ -2,7 +2,9 @@ package model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
+@JsExport
 @Serializable
 data class RemoteExpectValue(
     @SerialName("average_damage_dealt")

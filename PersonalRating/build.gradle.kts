@@ -21,14 +21,10 @@ kotlin {
         }
     }
     js(IR) {
-        browser {
-            commonWebpackConfig {
-                cssSupport {
-                    enabled.set(true)
-                }
-            }
-        }
+        moduleName = "personal-rating"
+        nodejs {}
         binaries.executable()
+        generateTypeScriptDefinitions()
     }
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -49,6 +45,13 @@ kotlin {
 
     sourceSets {
         val ktorVersion: String by project
+
+        // JsExport for everything
+        all {
+            languageSettings.apply {
+                optIn("kotlin.js.ExperimentalJsExport")
+            }
+        }
 
         val commonMain by getting {
             dependencies {

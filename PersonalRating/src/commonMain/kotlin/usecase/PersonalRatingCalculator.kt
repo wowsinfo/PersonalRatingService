@@ -2,10 +2,12 @@ package usecase
 
 import model.PersonalRatingResult
 import model.PersonalRatingValue
+import kotlin.js.JsExport
 import kotlin.math.ln
 import kotlin.math.log
 import kotlin.math.roundToInt
 
+@JsExport
 class PersonalRatingCalculator {
     private val shipList: MutableSet<PersonalRatingValue> = mutableSetOf()
 

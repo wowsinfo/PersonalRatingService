@@ -1,10 +1,12 @@
 package model
 
 import kotlinx.serialization.Serializable
+import kotlin.js.JsExport
 
 /**
- * Raw ship values including damage, win rate and frags for [PersonalRating]
+ * Raw ship values including damage, win rate and frags for [PersonalRatingValue]
  */
+@JsExport
 @Serializable
 data class ShipRawValue(
     val battleCount: Int,
@@ -25,8 +27,9 @@ data class ShipRawValue(
 }
 
 /**
- * Average ship values for [PersonalRating]
+ * Average ship values for [PersonalRatingValue]
  */
+@JsExport
 @Serializable
 data class ShipAverageValue(
     val battleCount: Int,

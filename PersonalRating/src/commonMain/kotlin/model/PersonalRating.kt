@@ -1,5 +1,8 @@
 package model
 
+import kotlin.js.JsExport
+
+@JsExport
 data class PersonalRatingValue(
     val shipValue: ShipRawValue,
     val expectValue: RemoteExpectValue,
@@ -21,6 +24,7 @@ data class PersonalRatingValue(
     val expectedFrags = expectValue.averageFrags * battleCount
 }
 
+@JsExport
 data class PersonalRatingResult(
     val pr: Int,
     val ap: Int, // Ability Point considers battle count

@@ -20,6 +20,6 @@ class RemoteDataService {
     }
 
     suspend fun getRemoteData(): RemoteDataSource {
-        return Json.decodeFromString( getRemoteString())
+        return Json.decodeFromString(getRemoteString())
     }
 }
