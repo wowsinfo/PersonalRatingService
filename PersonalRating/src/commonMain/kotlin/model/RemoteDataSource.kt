@@ -3,7 +3,7 @@ package model
 import kotlinx.serialization.Serializable
 import kotlin.js.JsExport
 
-typealias RemoteDataMap = Map<String, RemoteExpectValue>
+typealias RemoteDataMap = Map<String, RemoteExpectValue?>
 
 @JsExport
 @Serializable

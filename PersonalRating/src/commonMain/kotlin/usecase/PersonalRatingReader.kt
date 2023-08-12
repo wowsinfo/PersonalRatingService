@@ -4,15 +4,17 @@ import kotlinx.serialization.json.Json
 import model.RemoteDataSource
 import model.RemoteExpectValue
 import kotlin.js.JsExport
+import kotlin.jvm.JvmStatic
 
 /**
  * Read the json file from the local system
  */
-expect fun PersonalRatingReader.Companion.fromFile(filePath: String): PersonalRatingReader?
+expect fun readerFromFile(filePath: String): PersonalRatingReader?
 
 @JsExport
 class PersonalRatingReader private constructor(private val dataSource: RemoteDataSource) {
     companion object {
+        @JvmStatic
         fun fromString(jsonString: String): PersonalRatingReader? {
             return try {
                 val dataSource: RemoteDataSource = Json.decodeFromString(jsonString)
@@ -20,6 +22,11 @@ class PersonalRatingReader private constructor(private val dataSource: RemoteDat
             } catch (e: Exception) {
                 null
             }
+        }
+
+        @JvmStatic
+        fun fromFile(filePath: String): PersonalRatingReader? {
+            return readerFromFile(filePath)
         }
     }
 

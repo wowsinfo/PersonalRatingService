@@ -1,15 +1,16 @@
 package service
 
 import model.RemoteDataSource
-import util.promise
+import promiseScope
 import kotlin.js.Promise
 
 @JsExport
-fun RemoteDataService.getRemoteString(): Promise<String> = promise {
-    getRemoteString()
-}
+class RemoteDataServiceJs : RemoteDataService() {
+    fun getRemoteStringPromise(): Promise<String> = promiseScope {
+        getRemoteString()
+    }
 
-@JsExport
-fun RemoteDataService.getRemoteData(): Promise<RemoteDataSource> = promise {
-    getRemoteData()
+    fun getRemoteDataPromise(): Promise<RemoteDataSource> = promiseScope {
+        getRemoteData()
+    }
 }

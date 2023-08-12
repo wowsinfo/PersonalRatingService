@@ -7,7 +7,7 @@ import platform.posix.fread
 import platform.posix.size_t
 
 @OptIn(ExperimentalForeignApi::class)
-actual fun PersonalRatingReader.Companion.fromFile(filePath: String): PersonalRatingReader? {
+actual fun readerFromFile(filePath: String): PersonalRatingReader? {
     val file = fopen(filePath, "r") ?: return null
     val stringBuilder = StringBuilder()
     memScoped {
@@ -25,5 +25,5 @@ actual fun PersonalRatingReader.Companion.fromFile(filePath: String): PersonalRa
     }
 
     fclose(file)
-    return fromString(stringBuilder.toString())
+    return PersonalRatingReader.fromString(stringBuilder.toString())
 }

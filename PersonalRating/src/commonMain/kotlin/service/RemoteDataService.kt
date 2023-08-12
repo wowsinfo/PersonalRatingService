@@ -10,7 +10,7 @@ import model.RemoteDataSource
  * Receive the Personal Rating from Henry's GitHub to prevent traffics to wows-numbers.com
  * Only call this method if needed, do not overuse this method.
  */
-class RemoteDataService {
+open class RemoteDataService {
     private val client = HttpClient()
 
     suspend fun getRemoteString(): String {
