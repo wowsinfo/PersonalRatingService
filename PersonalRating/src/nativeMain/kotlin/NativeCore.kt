@@ -7,10 +7,11 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 @OptIn(ExperimentalForeignApi::class)
-typealias KObjectCallback = CPointer<CFunction<(COpaquePointer) -> Unit>>
+typealias KObjectCallback = CPointer<CFunction<(COpaquePointer, COpaquePointer) -> Unit>>
 @OptIn(ExperimentalForeignApi::class)
-typealias StringCallback = CPointer<CFunction<(CValuesRef<ByteVar>) -> Unit>>
-
+typealias StringCallback = CPointer<CFunction<(CValues<ByteVar>,COpaquePointer) -> Unit>>
+@OptIn(ExperimentalForeignApi::class)
+typealias PrimitiveCallback<T> = CPointer<CFunction<(T, COpaquePointer) -> Unit>>
 fun suspendScope(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
