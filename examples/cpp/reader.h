@@ -4,39 +4,34 @@
 #include <memory>
 #include <string>
 
-#include "personalrating_api.h"
-
-#define reader_companion \
-    personalrating_kref_usecase_PersonalRatingReader_Companion
-#define reader_object personalrating_kref_usecase_PersonalRatingReader
-#define kt_lib personalrating_symbols()->kotlin.root
-#define kt_lib_reader kt_lib.usecase.PersonalRatingReader
+#include "kotlin.h"
 
 namespace examples {
 class Reader {
-    reader_object reader;
+    KN_PersonalRatingReader_Ref reader;
 
     // No equal
     Reader &operator=(const Reader &) = delete;
 
     std::function<void(Reader *)> onReady = nullptr;
     static void on_remote_callback(const char *remote_string, Reader *target) {
-        target->reader = kt_lib_reader.Companion.fromString(reader_companion(),
-                                                            remote_string);
+        target->reader = KN_PersonalRatingReader.Companion.fromString(
+            KN_PersonalRatingReader_Companion(), remote_string);
         target->onReady(target);
     }
 
 public:
     static std::unique_ptr<Reader> from_file(const std::string &path) {
         auto temp = std::make_unique<Reader>();
-        temp->reader =
-            kt_lib_reader.Companion.fromFile(reader_companion(), path.c_str());
+        temp->reader = KN_PersonalRatingReader.Companion.fromFile(
+            KN_PersonalRatingReader_Companion(), path.c_str());
         return temp;
     }
+
     static std::unique_ptr<Reader> from_string(const std::string &str) {
         auto temp = std::make_unique<Reader>();
-        temp->reader =
-            kt_lib_reader.Companion.fromString(reader_companion(), str.c_str());
+        temp->reader = KN_PersonalRatingReader.Companion.fromString(
+            KN_PersonalRatingReader_Companion(), str.c_str());
         return temp;
     }
 
@@ -53,15 +48,14 @@ public:
                 "onReady must be set before calling load_from_remote");
         }
 
-        auto service =
-            kt_lib.service.RemoteDataServiceNative.RemoteDataServiceNative();
-        kt_lib.service.RemoteDataServiceNative.getRemoteString(
-            service, (void *)on_remote_callback, this);
+        auto service = KN_RemoteDataService.RemoteDataServiceNative();
+        KN_RemoteDataService.getRemoteString(service,
+                                             (void *)on_remote_callback, this);
     }
 
     const personalrating_kref_model_RemoteExpectValue get_value(
         const char *key) {
-        return kt_lib_reader.getExpectedValue(reader, key);
+        return KN_PersonalRatingReader.getExpectedValue(reader, key);
     }
 };  // namespace examples
 }  // namespace examples

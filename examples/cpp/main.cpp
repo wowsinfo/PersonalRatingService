@@ -17,21 +17,20 @@ int main(int argc, char **argv) {
         if (result.pinned == nullptr) {
             std::cout << "No such key" << std::endl;
         } else {
-            const auto &result_string =
-                kt_lib.model.RemoteExpectValue.toString(result);
+            const auto &result_string = KN_RemoteExpectValue.toString(result);
             std::cout << result_string << std::endl;
         }
     };
     const auto remote_reader = examples::Reader::from_remote(on_data_reader);
     remote_reader->load_from_remote();
 
-    const auto reader = examples::Reader::from_file("../../personal_rating.json");
+    const auto reader =
+        examples::Reader::from_file("../../personal_rating.json");
     auto result = reader->get_value(key);
     if (result.pinned == nullptr) {
         std::cout << "No such key" << std::endl;
     } else {
-        const auto &result_string =
-            kt_lib.model.RemoteExpectValue.toString(result);
+        const auto &result_string = KN_RemoteExpectValue.toString(result);
         std::cout << result_string << std::endl;
     }
     getchar();  // wait for remote call
