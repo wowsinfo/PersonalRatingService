@@ -19,6 +19,7 @@ actual fun readerFromFile(filePath: String): PersonalRatingReader? {
         while (true) {
             bytesRead = fread(buffer, charSize, bufferSize, file).toInt()
             if (bytesRead <= 0) break
+            buffer[bytesRead] = 0 // make it null-terminated to fix reading bug
             val text = buffer.toKString()
             stringBuilder.append(text)
         }
