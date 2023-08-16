@@ -33,4 +33,8 @@ class PersonalRatingReader private constructor(private val dataSource: RemoteDat
     fun getExpectedValue(shipId: String): RemoteExpectValue? {
         return dataSource.data[shipId]
     }
+
+    fun getAllKeys(): Array<String> {
+        return dataSource.data.keys.toTypedArray()
+    }
 }

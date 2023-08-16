@@ -1,10 +1,8 @@
 package usecase
 
 actual fun readerFromFile(filePath: String): PersonalRatingReader? {
-    val canAccessFile = js("typeof require == 'function' && require('fs') != null") as Boolean
-    if (!canAccessFile) return null
-
-    val fs = js("require('fs')")
+    // This works in node.js but will try a warning in browser
+    val fs = js("try { return require('fs') } catch (e) { return null }") ?: return null
     val exists = fs.existsSync(filePath) as Boolean
     if (!exists) return null
 

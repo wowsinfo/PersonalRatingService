@@ -43,7 +43,8 @@ data class ShipAverageValue(
         return ShipRawValue(
             battleCount = battleCount,
             damage = averageDamage * battleCount,
-            wins = battleCount * averageWinRate,
+            // convert to actual battle count, averageWinRate is not in percentage
+            wins = battleCount * averageWinRate / 100,
             frags = averageFrags * battleCount
         )
     }
