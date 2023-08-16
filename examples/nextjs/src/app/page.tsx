@@ -10,6 +10,8 @@ import { useEffect } from "react";
 import { Repo } from "./repo";
 import { Calculator, PersonalRatingResult, PersonalRatingValue } from "./calculator";
 
+const calculator = new Calculator();
+
 export default function Home() {
   /**
    * State hook for storing an array of items.
@@ -20,8 +22,6 @@ export default function Home() {
   const [ready, setReady] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  const calculator = new Calculator();
-
   const addItem = () => {
     const newItem = Repo.getInstance().getRandomExpectValue();
     if (!newItem) {
@@ -31,7 +31,7 @@ export default function Home() {
 
     // based on the expected value, let's randomise the actual value
     const range = 10000;
-    const sign = Math.random() > 0.5 ? 1 : -1;
+    const sign = Math.random() > 0.99 ? 1 : -1;
     const randomise = ((Math.random() * range)) * sign;
     console.log(randomise);
     const randomDamage = Math.max(1000, newItem.averageDamageDealt + randomise);
@@ -88,9 +88,14 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center">
-      <div className="flex justify-center items-center flex flex-col">
+      <div className="flex justify-center items-center flex-col">
         <h1 className="text-2xl font-bold">Personal Rating Service js</h1>
         <p>{prInfo?.toString()}</p>
+        <div className="flex flex-row">
+          <p>{prInfo?.prComment.getComment()}</p>
+          <p> - </p>
+          <p>{prInfo?.apComment.getComment()}</p>
+        </div>
       </div>
       {_renderItem(items)}
       <div className="h-16" />
